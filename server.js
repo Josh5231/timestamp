@@ -15,6 +15,10 @@ app.get('/', function (req, res) {
     res.sendFile("index.html",{root: __dirname + '/'});
 });
 
+app.get('/index.css',function (req, res) {
+    res.sendFile("index.css",{root: __dirname + '/'});
+});
+
 app.get("/:timeInput",(req,res)=>{
    var input=req.params.timeInput;
    

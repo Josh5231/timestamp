@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Black+Ops+One');
+@import url('https://fonts.googleapis.com/css?family=Droid+Serif');
+
+
+.Header{
+    text-align:center;
+    border: 1px solid black;
+    font-family: 'Black Ops One', cursive;
+}
+
+.howto{
+    width:50%;
+    margin:auto;
+    font-family: 'Droid Serif', serif;
+}
