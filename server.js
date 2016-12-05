@@ -1,6 +1,6 @@
 var express = require("express");
 var app = express();
-var port = 8080;
+var port = process.env.PORT || 8080;
 
 var months = [
    "January","February","March",
@@ -34,9 +34,8 @@ app.get("/:timeInput",(req,res)=>{
      var out = { unix:+input, natural:months[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear() };
      res.send(out);  
    }
-   //res.send(input);
 });
 
-app.listen(process.env.PORT || 8080, function () {
+app.listen(port, function () {
   console.log('Example app listening on port '+port+"!");
 })
