@@ -24,8 +24,15 @@ app.get("/:timeInput",(req,res)=>{
    
    //1.Check if its a unix time
    if( isNaN(+input) ){ //Natural Date
-    var out = { unix:Date.parse(input), natural:input };
-     res.send(out);
+        if( isNaN(Date.parse(input)) )
+            {
+            res.send("Error: Invalid input.");
+            }
+        else
+            {
+            var out = { unix:Date.parse(input), natural:input };
+            res.send(out);
+            }
    }
    else //unix time
    {
