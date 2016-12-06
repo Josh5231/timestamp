@@ -9,8 +9,10 @@ var months = [
     "October","November","December"
     ];
 
+//A simple array to log the last 20 calls
 var log = [];
 
+//This just makes the log a little more readable
 var logToHtml=function()
     {
         var out="<html><body><h3 style='text-align:center'>Log:</h3><ol style='border:1px solid black'>";
@@ -20,18 +22,19 @@ var logToHtml=function()
         out+="</ol></body></html>";
         return out;
     };
-    
+
+//run logIt on all incoming requests    
 app.use(function logIt(req, res, next) {
  var d = new Date();
- log.push( { ip:req.ip, path:req.path, time:d.toTimeString() } ); //"IP:"+req.ip+" / input:"+req.path);
- if(log.length>20){ log.shift(); }
+ log.push( { ip:req.ip, path:req.path, time:d.toTimeString() } ); 
+ if(log.length>20){ log.shift(); } //limit log.length to 20
  next();
 });
 
 
-app.use(express.static('public'));
+//app.use(express.static('public'));
 //Send index.html for root 
-app.get('/', (req, res) => {
+app.get(['/','/index','/index.html'], (req, res) => {
     res.sendFile("index.html",{root: __dirname + '/'});
 });
 
@@ -40,6 +43,7 @@ app.get('/index.css',(req, res) => {
     res.sendFile("index.css",{root: __dirname + '/'});
 });
 
+//Display the "log" 
 app.get('/log',(req,res)=>{
    res.send(logToHtml()); 
 });
@@ -57,8 +61,7 @@ app.get("/:timeInput",(req,res)=>{
             }
         else //if a valid date
             {
-            var out = { unix:Date.parse(input), natural:input };
-            res.send(out);
+            res.send({ unix:Date.parse(input), natural:input });
             }
    }
    else //unix time
@@ -72,4 +75,4 @@ app.get("/:timeInput",(req,res)=>{
 
 app.listen(port, function () {
   console.log('App running on port '+port+"!");
-})
+});
