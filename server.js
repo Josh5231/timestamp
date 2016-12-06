@@ -31,16 +31,12 @@ app.use(function logIt(req, res, next) {
  next();
 });
 
+app.use("/css",express.static(__dirname+"/css")); //Deliver css files if requested
 
 //app.use(express.static('public'));
 //Send index.html for root 
 app.get(['/','/index','/index.html'], (req, res) => {
     res.sendFile("index.html",{root: __dirname + '/'});
-});
-
-//Send index.css if requested
-app.get('/index.css',(req, res) => {
-    res.sendFile("index.css",{root: __dirname + '/'});
 });
 
 //Display the "log" 
@@ -57,7 +53,7 @@ app.get("/:timeInput",(req,res)=>{
    if( isNaN(+input) ){ //Natural Date
         if( isNaN(Date.parse(input)) ) //If Date.parse(input) outputs NaN, IE not a valid date
             {
-            res.send("Error: Invalid input.");
+            res.send({ unix:null, natural:null });
             }
         else //if a valid date
             {
